@@ -28,7 +28,7 @@ class Swagger2Config {
         return Docket(DocumentationType.SWAGGER_2)
             .apiInfo(apiInfo())
             .select()
-            .apis(RequestHandlerSelectors.any())
+            .apis(RequestHandlerSelectors.basePackage("org.nuswishboard.backend"))
             .paths(PathSelectors.any())
             .build()
     }
