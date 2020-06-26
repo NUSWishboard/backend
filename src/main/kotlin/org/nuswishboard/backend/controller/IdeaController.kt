@@ -30,7 +30,7 @@ class IdeaController(val ideaService: IdeaService) {
     @ApiOperation(value = "Get an idea by ID")
     @GetMapping("/{id}")
     fun getIdea(@PathVariable id: String): ResponseEntity<Idea> {
-        val idea = ideaService.getIdea(id.toLong()) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        val idea = ideaService.getIdea(id.toLong()) ?: return ResponseEntity.notFound().build()
         return ResponseEntity(idea, HttpStatus.OK)
     }
 
@@ -47,7 +47,7 @@ class IdeaController(val ideaService: IdeaService) {
     @ApiOperation(value = "Get an idea by ID")
     @DeleteMapping("/{id}")
     fun deleteIdea(@PathVariable id: Long): ResponseEntity<Idea> {
-        val idea = ideaService.deleteIdea(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        val idea = ideaService.deleteIdea(id) ?: return ResponseEntity.notFound().build()
         return ResponseEntity(idea, HttpStatus.OK)
     }
 }

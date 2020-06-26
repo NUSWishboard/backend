@@ -3,15 +3,17 @@ package org.nuswishboard.backend.model
 import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Idea(
-    var idea: String,
-    var owner: String,
-    var description: String? = null,
+data class Idea(
+    val idea: String,
+    val owner: String,
+    val description: String? = null,
 
-    @Id @GeneratedValue var id: Long,
-    var addedAt: LocalDateTime = LocalDateTime.now(),
-    var updatedAt: LocalDateTime = LocalDateTime.now()
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = 0,
+    val addedAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now()
 )
