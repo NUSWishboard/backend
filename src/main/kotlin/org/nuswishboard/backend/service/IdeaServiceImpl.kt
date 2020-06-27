@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service
 class IdeaServiceImpl(private val ideaRepository: IdeaRepository) : IdeaService {
     override fun getAllIdeas(): Collection<Idea> = ideaRepository.findAll()
 
-    override fun createIdea(idea: String, owner: String, description: String?): Idea =
-        ideaRepository.save(Idea(idea, owner, description))
+    override fun createIdea(idea: Idea): Idea =
+        ideaRepository.save(Idea(idea = idea.idea, owner = idea.owner, description = idea.description))
 
     override fun getIdea(id: Long): Idea? = ideaRepository.findById(id).orElse(null)
 
-    override fun updateIdea(id: Long, idea: String, owner: String, description: String?): Idea =
-        ideaRepository.findById(id).map { existingIdea ->
-            val updatedIdea: Idea = existingIdea
-                .copy(idea = idea, owner = owner, description = description)
+    override fun updateIdea(idea: Idea): Idea? =
+        ideaRepository.findById(idea.id).map { existingIdea ->
+            val updatedIdea = existingIdea
+                .copy(idea = idea.idea, owner = idea.owner, description = idea.description)
             return@map ideaRepository.save(updatedIdea)
         }.orElse(null)
 
-    override fun deleteIdea(id: Long): Idea =
+    override fun deleteIdea(id: Long): Idea? =
         ideaRepository.findById(id).map { existingIdea ->
             ideaRepository.deleteById(id)
             return@map existingIdea

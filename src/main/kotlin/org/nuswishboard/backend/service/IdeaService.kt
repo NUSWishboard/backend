@@ -4,8 +4,8 @@ import org.nuswishboard.backend.model.Idea
 
 interface IdeaService {
     fun getAllIdeas(): Collection<Idea>
-    fun createIdea(idea: String, owner: String, description: String?): Idea
+    fun createIdea(idea: Idea): Idea
     fun getIdea(id: Long): Idea?
-    fun updateIdea(id: Long, idea: String, owner: String, description: String?): Idea
+    fun updateIdea(idea: Idea): Idea?
     fun deleteIdea(id: Long): Idea?
 }
