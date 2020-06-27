@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import javax.validation.Valid
 
 @Controller
 @RequestMapping("/idea")
@@ -20,12 +21,8 @@ class IdeaController(val ideaService: IdeaService) {
 
     @ApiOperation(value = "Create new idea")
     @PostMapping("/")
-    fun createIdea(
-        @RequestParam idea: String,
-        @RequestParam owner: String,
-        @RequestParam description: String? = null
-    ): ResponseEntity<Idea> =
-        ResponseEntity(ideaService.createIdea(idea, owner, description), HttpStatus.CREATED)
+    fun createIdea(@Valid @RequestBody idea: Idea): ResponseEntity<Idea> =
+        ResponseEntity(ideaService.createIdea(idea), HttpStatus.CREATED)
 
     @ApiOperation(value = "Get an idea by ID")
     @GetMapping("/{id}")
@@ -36,13 +33,8 @@ class IdeaController(val ideaService: IdeaService) {
 
     @ApiOperation(value = "Update an idea by ID")
     @PutMapping("/{id}")
-    fun updateIdea(
-        @PathVariable id: String,
-        @RequestParam idea: String,
-        @RequestParam owner: String,
-        @RequestParam description: String? = null
-    ): ResponseEntity<Idea> =
-        ResponseEntity(ideaService.updateIdea(id.toLong(), idea, owner, description), HttpStatus.OK)
+    fun updateIdea(@PathVariable id: String, @Valid @RequestBody idea: Idea): ResponseEntity<Idea> =
+        ResponseEntity(ideaService.updateIdea(idea), HttpStatus.OK)
 
     @ApiOperation(value = "Get an idea by ID")
     @DeleteMapping("/{id}")

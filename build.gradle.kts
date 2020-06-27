@@ -28,6 +28,7 @@ dependencies {
     implementation("io.springfox:springfox-swagger2:2.9.2")
     implementation("io.springfox:springfox-swagger-ui:2.9.2")
     implementation("io.springfox:springfox-bean-validators:2.9.2")
+    implementation("javax.validation:validation-api")
     implementation(kotlin("stdlib-jdk8"))
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("mysql:mysql-connector-java")
